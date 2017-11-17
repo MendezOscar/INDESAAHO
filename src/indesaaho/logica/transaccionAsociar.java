@@ -19,8 +19,8 @@ public class transaccionAsociar {
     
     public void createAsociar(Asociar aso) {
         String query = "INSERT INTO CUENTASASOCIADAS "
-                + "(IDASOCIACION, TIPOCUENTA, IDCLIENTE, NOMBRE, IDCUENTA, CONTADOR, SALDO) "
-                + "VALUES (? , ?, ?, ?, ?, ?, ?)";
+                + "(IDASOCIACION, TIPOCUENTA, IDCLIENTE, NOMBRE, IDCUENTA, CONTADOR, SALDO, FECHA) "
+                + "VALUES (? , ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = service.con.prepareStatement(query)) {
             stmt.setString(1, aso.getIdAsociar());
             stmt.setString(2, aso.getTipocuenta());
@@ -28,7 +28,8 @@ public class transaccionAsociar {
             stmt.setString(4, aso.getNombre());
             stmt.setString(5, aso.getIdCuenta());
             stmt.setInt(6, aso.getContador());
-            stmt.setFloat(6, aso.getSaldo());
+            stmt.setFloat(7, aso.getSaldo());
+            stmt.setString(8, aso.getDate());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, " La asociacion: " + aso.getIdAsociar() + " se ha guardado Exitosamente.");
         } catch (SQLException se) {
@@ -39,7 +40,7 @@ public class transaccionAsociar {
     
     public void updateAsociar(String id, Asociar aso) throws SQLException {
         String query = "UPDATE CUENTASASOCIADAS "
-                + "SET TIPOCUENTA=?, IDCLIENTE=?, NOMBRE= ?, IDCUENTA=?, SALDO0?"
+                + "SET TIPOCUENTA=?, IDCLIENTE=?, NOMBRE= ?, IDCUENTA=?, SALDO0?, FECHA=?"
                 + "WHERE IDASOCIACION=?";
         try (PreparedStatement stmt = service.con.prepareStatement(query)) {
             stmt.setString(1, aso.getTipocuenta());
@@ -48,7 +49,8 @@ public class transaccionAsociar {
             stmt.setString(4, aso.getIdCuenta());
             stmt.setInt(5, aso.getContador());
             stmt.setFloat(6, aso.getSaldo());
-            stmt.setString(7, aso.getIdAsociar());
+            stmt.setString(7, aso.getDate());
+            stmt.setString(8, aso.getIdAsociar());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "La asociacion: " + id + " se ha actualizado correctamente.");
         } catch (SQLException se) {
@@ -81,7 +83,8 @@ public class transaccionAsociar {
                 return null;
             }
             return (new Asociar(rs.getString("IDASOCIACION"), rs.getString("TIPOCUENTA"), rs.getString("IDCLIENTE"),
-                    rs.getString("NOMBRE"), rs.getString("IDCUENTA"), rs.getInt("CONTADOR"), rs.getFloat("SALDO")));
+                    rs.getString("NOMBRE"), rs.getString("IDCUENTA"), rs.getInt("CONTADOR"), rs.getFloat("SALDO"),
+                    rs.getString("FECHA")));
         } catch (SQLException se) {
             JOptionPane.showMessageDialog(null, "ERROR Codigo de cuenta: " + id + "no se ha encontrado.");
         }
@@ -95,7 +98,8 @@ public class transaccionAsociar {
             ArrayList<Asociar> depts = new ArrayList<>();
             while (rs.next()) {
                 depts.add(new Asociar(rs.getString("IDASOCIACION"), rs.getString("TIPOCUENTA"), rs.getString("IDCLIENTE"),
-                    rs.getString("NOMBRE"), rs.getString("IDCUENTA"), rs.getInt("CONTADOR"), rs.getFloat("SALDO")));
+                    rs.getString("NOMBRE"), rs.getString("IDCUENTA"), rs.getInt("CONTADOR"), rs.getFloat("SALDO"),
+                    rs.getString("FECHA")));
             }
             return depts;
         } catch (SQLException se) {

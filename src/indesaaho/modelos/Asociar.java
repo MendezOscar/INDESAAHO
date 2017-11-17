@@ -13,9 +13,10 @@ public class Asociar {
     String idCuenta;
     int contador;
     float Saldo;
+    String date;
 
     public Asociar(String idAsociar, String tipocuenta, String idCliente, String Nombre, String idCuenta, 
-            int contador, float Saldo) {
+            int contador, float Saldo, String date) {
         this.idAsociar = idAsociar;
         this.tipocuenta = tipocuenta;
         this.idCliente = idCliente;
@@ -23,6 +24,7 @@ public class Asociar {
         this.idCuenta = idCuenta;
         this.contador = contador;
         this.Saldo = Saldo;
+        this.date = date;
     }
 
     public String getIdAsociar() {
@@ -79,6 +81,14 @@ public class Asociar {
 
     public void setSaldo(float Saldo) {
         this.Saldo = Saldo;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
     
     

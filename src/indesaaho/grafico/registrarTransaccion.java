@@ -543,11 +543,12 @@ public class registrarTransaccion extends javax.swing.JFrame {
         try {
             servicioTransaccion service = new servicioTransaccion();
             ArrayList<Transaccion> depts;
-            depts = (ArrayList<Transaccion>) service.findAllTransaccion();
+            depts = (ArrayList<Transaccion>) service.findAllTransaccionbyAcs();
             if (depts.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No hay registro, Ingrese uno nuevo");
             } else {
-                Transaccion tran = depts.get(0);
+                int size = depts.size()-1;
+                Transaccion tran = depts.get(size);
                 jTran.setText(tran.getIdTransaccion());
             }
         } catch (SQLException ex) {

@@ -97,4 +97,21 @@ public class servicioTransaccion {
         return null;
     }
     
+    public List<Transaccion> findAllTransaccionbyAcs() throws SQLException {
+        try (Statement stmt = service.con.createStatement()) {
+            String query = "SELECT * FROM TRANSACCION ORDER BY CONTADOR ASC";
+            ResultSet rs = stmt.executeQuery(query);
+            ArrayList<Transaccion> depts = new ArrayList<>();
+            while (rs.next()) {
+                depts.add(new Transaccion(rs.getString("IDTRANSACCION"), rs.getString("NOMBRE"), rs.getString("APODO"),
+                    rs.getInt("CONTADOR")));
+            }
+            return depts;
+        } catch (SQLException se) {
+            System.out.println(se.toString());
+            JOptionPane.showMessageDialog(null, "ERROR.");
+        }
+        return null;
+    }
+    
 }
