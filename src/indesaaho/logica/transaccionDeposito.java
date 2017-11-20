@@ -72,7 +72,7 @@ public class transaccionDeposito {
         }
     }
 
-    private Deposito findByIdDeposito(String id) {
+    public Deposito findByIdDeposito(String id) {
         String query = "SELECT * FROM DEPOSITO WHERE IDDEPOSITO = ?";
         try (PreparedStatement stmt = service.con.prepareStatement(query)) {
             stmt.setString(1, id);

@@ -71,8 +71,8 @@
                   <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
                   <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jTipo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="609" max="32767" attributes="0"/>
+                  <Component id="jTipo" min="-2" pref="196" max="-2" attributes="0"/>
+                  <EmptySpace pref="449" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>

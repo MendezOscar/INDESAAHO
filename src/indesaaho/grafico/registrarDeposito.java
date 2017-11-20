@@ -1,5 +1,23 @@
-
 package indesaaho.grafico;
+
+import indesaaho.logica.transaccionAsociar;
+import indesaaho.logica.transaccionClientes;
+import indesaaho.logica.transaccionCuentas;
+import indesaaho.logica.transaccionDeposito;
+import indesaaho.modelos.Asociar;
+import indesaaho.modelos.Clientes;
+import indesaaho.modelos.Cuentas;
+import indesaaho.modelos.Deposito;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +31,6 @@ public class registrarDeposito extends javax.swing.JFrame {
     public registrarDeposito() {
         initComponents();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,14 +58,15 @@ public class registrarDeposito extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jCuenta = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jRetiro = new javax.swing.JTextField();
+        jDeposito = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jFecha = new javax.swing.JTextField();
         jNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jMonto = new javax.swing.JTextField();
+        jTipo = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jToolBar1.setBackground(new java.awt.Color(204, 204, 255));
         jToolBar1.setRollover(true);
@@ -229,20 +247,20 @@ public class registrarDeposito extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jLabel3.setText("CODIGO DE DEPOSITO");
 
-        jRetiro.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jRetiro.addMouseListener(new java.awt.event.MouseAdapter() {
+        jDeposito.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jDeposito.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRetiroMouseClicked(evt);
+                jDepositoMouseClicked(evt);
             }
         });
-        jRetiro.addActionListener(new java.awt.event.ActionListener() {
+        jDeposito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRetiroActionPerformed(evt);
+                jDepositoActionPerformed(evt);
             }
         });
-        jRetiro.addKeyListener(new java.awt.event.KeyAdapter() {
+        jDeposito.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jRetiroKeyPressed(evt);
+                jDepositoKeyPressed(evt);
             }
         });
 
@@ -303,6 +321,8 @@ public class registrarDeposito extends javax.swing.JFrame {
             }
         });
 
+        jTipo.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -314,27 +334,30 @@ public class registrarDeposito extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -356,11 +379,12 @@ public class registrarDeposito extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -372,15 +396,15 @@ public class registrarDeposito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String id = jTran.getText();
-        if ("".equals(jTran.getText())) {
+        String id = jDeposito.getText();
+        if ("".equals(jDeposito.getText())) {
             JOptionPane.showMessageDialog(null, "Ingrese codigo");
         } else {
-            servicioTransaccion service = new servicioTransaccion();
-            if (service.findByIdTransaccion(id) == null) {
-                Transaccion tran;
-                tran = enviarDatos();
-                service.createTransaccion(tran);
+            transaccionDeposito service = new transaccionDeposito();
+            if (service.findByIdDeposito(id) == null) {
+                Deposito dep;
+                dep = enviarDatos();
+                service.createDeposito(dep);
             } else {
                 JOptionPane.showMessageDialog(null, "La transaccion: " + id + " no se registro");
             }
@@ -389,15 +413,15 @@ public class registrarDeposito extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String id = jTran.getText();
-        if ("".equals(jTran.getText())) {
+        String id = jDeposito.getText();
+        if ("".equals(jDeposito.getText())) {
             JOptionPane.showMessageDialog(null, "Ingrese codigo");
         } else {
             try {
-                Transaccion tran;
-                tran = enviarDatos();
-                servicioTransaccion service = new servicioTransaccion();
-                service.updateTransaccion(id, tran);
+                Deposito dep;
+                dep = enviarDatos();
+                transaccionDeposito service = new transaccionDeposito();
+                service.updateDeposito(id, dep);
             } catch (SQLException ex) {
                 Logger.getLogger(registrarCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -406,9 +430,9 @@ public class registrarDeposito extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            String id = jTran.getText();
-            servicioTransaccion service = new servicioTransaccion();
-            service.deleteTransaccion(id);
+            String id = jDeposito.getText();
+            transaccionDeposito service = new transaccionDeposito();
+            service.deleteDeposito(id);
             limpiar();
         } catch (SQLException ex) {
             Logger.getLogger(registrarCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -422,15 +446,15 @@ public class registrarDeposito extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        String id = jTran.getText();
+        String id = jDeposito.getText();
         if ("".equals(id)) {
             JOptionPane.showMessageDialog(null, "Ingrese codigo");
         } else {
-            Transaccion tran;
-            servicioTransaccion service = new servicioTransaccion();
-            tran = service.findByIdTransaccion(id);
-            if (tran != null) {
-                setearBusqueda(tran);
+            Deposito dep;
+            transaccionDeposito service = new transaccionDeposito();
+            dep = service.findByIdDeposito(id);
+            if (dep != null) {
+                setearBusqueda(dep);
             } else {
                 JOptionPane.showMessageDialog(null, "La Asociacion: " + id + " no existe");
             }
@@ -445,7 +469,6 @@ public class registrarDeposito extends javax.swing.JFrame {
 
     private void jClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jClienteMouseClicked
         // TODO add your handling code here:
-        setearUltimo();
     }//GEN-LAST:event_jClienteMouseClicked
 
     private void jClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClienteActionPerformed
@@ -455,17 +478,25 @@ public class registrarDeposito extends javax.swing.JFrame {
     private void jClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jClienteKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String id = jTran.getText();
+            String id = jCliente.getText();
             if ("".equals(id)) {
                 JOptionPane.showMessageDialog(null, "Ingrese codigo");
             } else {
-                Transaccion tran;
-                servicioTransaccion service = new servicioTransaccion();
-                tran = service.findByIdTransaccion(id);
-                if (tran != null) {
-                    setearBusqueda(tran);
-                } else {
-                    JOptionPane.showMessageDialog(null, "La Asociacion: " + id + " no existe");
+                try {
+                    Clientes clie;
+                    transaccionClientes service = new transaccionClientes();
+                    clie = service.findByIdClientes(id);
+                    if (clie != null) {
+                        String name = clie.getNombre() + " " + clie.getApellido();
+                        jNombre.setText(name);
+                        setCode();
+                        llenarCombo();
+                        obtenerCodeCount();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El Cliente: " + id + " no existe");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(registrarRetiro.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -483,17 +514,17 @@ public class registrarDeposito extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCuentaKeyPressed
 
-    private void jRetiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRetiroMouseClicked
+    private void jDepositoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDepositoMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRetiroMouseClicked
+    }//GEN-LAST:event_jDepositoMouseClicked
 
-    private void jRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRetiroActionPerformed
+    private void jDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDepositoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRetiroActionPerformed
+    }//GEN-LAST:event_jDepositoActionPerformed
 
-    private void jRetiroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jRetiroKeyPressed
+    private void jDepositoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDepositoKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRetiroKeyPressed
+    }//GEN-LAST:event_jDepositoKeyPressed
 
     private void jFechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jFechaMouseClicked
         // TODO add your handling code here:
@@ -560,10 +591,8 @@ public class registrarDeposito extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new registrarDeposito().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new registrarDeposito().setVisible(true);
         });
     }
 
@@ -576,6 +605,7 @@ public class registrarDeposito extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JTextField jCliente;
     private javax.swing.JTextField jCuenta;
+    private javax.swing.JTextField jDeposito;
     private javax.swing.JTextField jFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
@@ -594,7 +624,104 @@ public class registrarDeposito extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jMonto;
     private javax.swing.JTextField jNombre;
-    private javax.swing.JTextField jRetiro;
+    private javax.swing.JComboBox<String> jTipo;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
+
+    public Deposito enviarDatos() {
+        Deposito dep;
+        String idRetiro = obtenerCode();
+        String Fecha = jFecha.getText();
+        float Monto = Float.parseFloat(jMonto.getText());
+        int Contador = setearnumero();
+        String idCuenta = jCuenta.getText();
+        String idCliente = jCliente.getText();
+        dep = new Deposito(idRetiro, Fecha, Monto, Contador, idCuenta, idCliente);
+        return dep;
+    }
+
+    public void limpiar() {
+        jDeposito.setText("");
+        jFecha.setText("");
+        jMonto.setText("");
+        jCuenta.setText("");
+        jCliente.setText("");
+    }
+
+    public void setearBusqueda(Deposito dep) {
+        jDeposito.setText(dep.getIdDeposito());
+        jFecha.setText(dep.getFecha());
+        jMonto.setText(Float.toString(dep.getMonto()));
+        jCuenta.setText(dep.getIdCuenta());
+        jCliente.setText(dep.getIdCliente());
+    }
+
+    private String obtenerCode() {
+        String code;
+        String idCliente = jCliente.getText();
+        transaccionDeposito service = new transaccionDeposito();
+        ArrayList<Deposito> depts;
+        depts = (ArrayList<Deposito>) service.obtenerDepositoByIdCliente(idCliente);
+        code = idCliente + "-" + "DEP" + "-" + depts.size() + 1;
+        return code;
+    }
+
+    public int setearnumero() {
+        try {
+            int numero;
+            transaccionDeposito service = new transaccionDeposito();
+            ArrayList<Deposito> depts;
+            depts = (ArrayList<Deposito>) service.findAllDeposito();
+            numero = depts.size() + 1;
+            return numero;
+        } catch (SQLException ex) {
+            Logger.getLogger(registrarRetiro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public void setIcon() {
+        try {
+            Image img = ImageIO.read(new File("Logo.png"));
+            this.setIconImage(img);
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setCode() {
+        String code = obtenerCode();
+        jDeposito.setText(code);
+    }
+
+    public void llenarCombo() {
+        try {
+            String idCliente = jCliente.getText();
+            transaccionAsociar service = new transaccionAsociar();
+            ArrayList<Asociar> depts;
+            depts = (ArrayList<Asociar>) service.findAsociarByIdCliente(idCliente);
+            if (depts.isEmpty()){
+                JOptionPane.showMessageDialog(null, "El Cliente: " + idCliente + " no tiene cuenta asociada");
+            }else{
+                for (int x = 0; x < depts.size(); x++) {
+                Asociar aso = depts.get(x);
+                 jTipo.addItem(aso.getTipocuenta());
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(asociarCuenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+        public void obtenerCodeCount() {
+        String cuenta = jTipo.getSelectedItem().toString();
+        if ("".equals(cuenta)) {
+            JOptionPane.showMessageDialog(null, "el Cliente no tiene cuentas asociadas");
+        } else {
+            transaccionCuentas service = new transaccionCuentas();
+            Cuentas cue = service.findByIdNombre(cuenta);
+            jCuenta.setText(cue.getIdCuenta());
+        }
+
+    }
 }

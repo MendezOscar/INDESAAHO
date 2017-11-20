@@ -272,10 +272,14 @@ public final class Menu extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
+        registrarRetiro rt = new registrarRetiro();
+        rt.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
+        registrarDeposito rd = new registrarDeposito();
+        rd.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**

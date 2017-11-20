@@ -336,8 +336,8 @@ public class asociarCuenta extends javax.swing.JFrame {
                     .addGap(143, 143, 143)
                     .addComponent(jLabel28)
                     .addGap(18, 18, 18)
-                    .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(609, Short.MAX_VALUE)))
+                    .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(449, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

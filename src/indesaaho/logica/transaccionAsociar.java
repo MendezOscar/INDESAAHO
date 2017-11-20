@@ -107,4 +107,21 @@ public class transaccionAsociar {
         }
         return null;
     }
+    
+    public List<Asociar> findAsociarByIdCliente(String idCliente) throws SQLException {
+        try (Statement stmt = service.con.createStatement()) {
+            String query = "SELECT * FROM CUENTASASOCIADAS WHERE IDCLIENTE = " + "'" + idCliente + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            ArrayList<Asociar> depts = new ArrayList<>();
+            while (rs.next()) {
+                depts.add(new Asociar(rs.getString("IDASOCIACION"), rs.getString("TIPOCUENTA"), rs.getString("IDCLIENTE"),
+                    rs.getString("NOMBRE"), rs.getString("IDCUENTA"), rs.getInt("CONTADOR"), rs.getFloat("SALDO"),
+                    rs.getString("FECHA")));
+            }
+            return depts;
+        } catch (SQLException se) {
+            JOptionPane.showMessageDialog(null, "ERROR.");
+        }
+        return null;
+    }
 }
