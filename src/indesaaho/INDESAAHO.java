@@ -10,6 +10,8 @@ public class INDESAAHO {
     public static void main(String[] args) {
         Login lg = new Login();
         lg.setVisible(true);
+        Intereses in = new Intereses();
+        in.obtenerSaldos();
     }
     
 }
