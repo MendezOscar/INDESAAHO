@@ -1,11 +1,15 @@
 package indesaaho.grafico;
 
 import indesaaho.logica.transaccionAsociar;
+import indesaaho.logica.transaccionCajero;
 import indesaaho.logica.transaccionClientes;
 import indesaaho.logica.transaccionCuentas;
+import indesaaho.logica.transaccionLibreta;
 import indesaaho.modelos.Asociar;
+import indesaaho.modelos.Cajero;
 import indesaaho.modelos.Clientes;
 import indesaaho.modelos.Cuentas;
+import indesaaho.modelos.Libreta;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -21,7 +25,7 @@ import javax.swing.JOptionPane;
  *
  * @author Oscar Mendez
  */
-public class asociarCuenta extends javax.swing.JFrame {
+public final class asociarCuenta extends javax.swing.JFrame {
 
     /**
      * Creates new form AsociarCuenta
@@ -29,6 +33,7 @@ public class asociarCuenta extends javax.swing.JFrame {
     public asociarCuenta() {
         initComponents();
         llenarCombo();
+        llenarCajero();
     }
 
     /**
@@ -68,8 +73,14 @@ public class asociarCuenta extends javax.swing.JFrame {
         jSaldo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jFecha = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jCuenta = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        jCajeroName = new javax.swing.JComboBox<>();
+        jCajero = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Asociar Cuenta");
 
         jToolBar1.setBackground(new java.awt.Color(204, 204, 255));
         jToolBar1.setRollover(true);
@@ -214,6 +225,11 @@ public class asociarCuenta extends javax.swing.JFrame {
         jLabel28.setText("TIPO DE CUENTA");
 
         jTipo.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTipoActionPerformed(evt);
+            }
+        });
 
         jidCliente.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jidCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,6 +310,58 @@ public class asociarCuenta extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jLabel5.setText("NUMERO DE CUENTA");
+
+        jCuenta.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCuentaMouseClicked(evt);
+            }
+        });
+        jCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCuentaActionPerformed(evt);
+            }
+        });
+        jCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jCuentaKeyPressed(evt);
+            }
+        });
+
+        jLabel29.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jLabel29.setText("CAJERO");
+
+        jCajeroName.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jCajeroName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCajeroNameMouseClicked(evt);
+            }
+        });
+        jCajeroName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCajeroNameActionPerformed(evt);
+            }
+        });
+
+        jCajero.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jCajero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCajeroMouseClicked(evt);
+            }
+        });
+        jCajero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCajeroActionPerformed(evt);
+            }
+        });
+        jCajero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jCajeroKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -304,13 +372,16 @@ public class asociarCuenta extends javax.swing.JFrame {
                 .addComponent(jLabel32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(255, 255, 255))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jAso, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
@@ -323,21 +394,32 @@ public class asociarCuenta extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jidCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(261, 261, 261))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jAso, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel29)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jCajeroName, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jCajero, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(143, 143, 143)
                     .addComponent(jLabel28)
-                    .addGap(18, 18, 18)
-                    .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(449, Short.MAX_VALUE)))
+                    .addContainerGap(663, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,14 +428,16 @@ public class asociarCuenta extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel29)
+                            .addComponent(jCajeroName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jidCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,19 +446,20 @@ public class asociarCuenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jAso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(41, 41, 41))))
+                            .addComponent(jLabel2)))
+                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 36, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(93, 93, 93)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel28))
-                    .addContainerGap(136, Short.MAX_VALUE)))
+                    .addGap(95, 95, 95)
+                    .addComponent(jLabel28)
+                    .addContainerGap(161, Short.MAX_VALUE)))
         );
 
         pack();
@@ -390,6 +475,7 @@ public class asociarCuenta extends javax.swing.JFrame {
                 Asociar aso;
                 aso = enviarDatos();
                 service.createAsociar(aso);
+                createLibreta();
             } else {
                 JOptionPane.showMessageDialog(null, "La asociacion: " + id + " no se registro");
             }
@@ -526,6 +612,43 @@ public class asociarCuenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jFechaKeyPressed
 
+    private void jTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTipoActionPerformed
+
+    private void jCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCuentaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCuentaMouseClicked
+
+    private void jCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCuentaActionPerformed
+
+    private void jCuentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jCuentaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCuentaKeyPressed
+
+    private void jCajeroNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCajeroNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCajeroNameActionPerformed
+
+    private void jCajeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCajeroMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCajeroMouseClicked
+
+    private void jCajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCajeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCajeroActionPerformed
+
+    private void jCajeroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jCajeroKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCajeroKeyPressed
+
+    private void jCajeroNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCajeroNameMouseClicked
+        // TODO add your handling code here:
+        obtenerCajero();
+    }//GEN-LAST:event_jCajeroNameMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -568,6 +691,9 @@ public class asociarCuenta extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JTextField jCajero;
+    private javax.swing.JComboBox<String> jCajeroName;
+    private javax.swing.JTextField jCuenta;
     private javax.swing.JTextField jFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
@@ -581,9 +707,11 @@ public class asociarCuenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jNombre;
     private javax.swing.JTextField jSaldo;
     private javax.swing.JComboBox<String> jTipo;
@@ -601,7 +729,9 @@ public class asociarCuenta extends javax.swing.JFrame {
         int Contador = setearnumero();
         float Saldo = Float.parseFloat(jSaldo.getText());
         String date = jFecha.getText();
-        aso = new Asociar(idAsociar, tipo, idCliente, Nombre, idCuenta, Contador, Saldo, date);
+        int Cuenta = Integer.parseInt(jCuenta.getText());
+        String idCajero = jCajero.getText();
+        aso = new Asociar(idAsociar, tipo, idCliente, Nombre, idCuenta, Contador, Saldo, date, Cuenta, idCajero);
         return aso;
     }
 
@@ -611,6 +741,8 @@ public class asociarCuenta extends javax.swing.JFrame {
         jAso.setText("");
         jSaldo.setText("");
         jFecha.setText("");
+        jCuenta.setText("");
+        jCajero.setText("");
     }
 
     public void setearBusqueda(Asociar aso) {
@@ -620,6 +752,8 @@ public class asociarCuenta extends javax.swing.JFrame {
         jTipo.setSelectedItem(aso.getTipocuenta());
         jSaldo.setText(Float.toString(aso.getSaldo()));
         jFecha.setText(aso.getDate());
+        jCuenta.setText(Integer.toString(aso.getCuenta()));
+        jCajero.setText(aso.getIdCajero());
     }
 
     private String obtenerCode() {
@@ -677,5 +811,73 @@ public class asociarCuenta extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(asociarCuenta.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Libreta datosLibreta() {
+        Libreta lib;
+        String idLibreta = generateCode();
+        String idCliente = jidCliente.getText();
+        String Cuenta = jCuenta.getText();
+        String Cajero = jCajero.getText();
+        String Fecha = jFecha.getText();
+        String Transaccion = "DEP";
+        float valor = Float.parseFloat(jSaldo.getText());
+        float saldo = Float.parseFloat(jSaldo.getText());
+        int Contador = setearnumerolib();
+        lib = new Libreta(idLibreta, idCliente, Cuenta, Cajero, Fecha, Transaccion, valor, saldo, Contador);
+        return lib;
+    }
+
+    private String generateCode() {
+        String idLibreta;
+        String idAso = jAso.getText();
+        idLibreta = "Lib-" + idAso;
+        return idLibreta;
+    }
+
+    public void createLibreta() {
+        transaccionLibreta service = new transaccionLibreta();
+        Libreta lib;
+        lib = datosLibreta();
+        service.createLibreta(lib);
+    }
+
+    public int setearnumerolib() {
+        try {
+            int numero;
+            transaccionLibreta service = new transaccionLibreta();
+            ArrayList<Libreta> depts;
+            depts = (ArrayList<Libreta>) service.findAllLibretas();
+            numero = depts.size() + 1;
+            return numero;
+        } catch (SQLException ex) {
+            Logger.getLogger(registrarOperacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public void llenarCajero() {
+        try {
+            transaccionCajero service = new transaccionCajero();
+            ArrayList<Cajero> depts;
+            depts = (ArrayList<Cajero>) service.findAllCajero();
+            if (depts.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No existen cajeros");
+            } else {
+                for (int x = 0; x < depts.size(); x++) {
+                    Cajero caj = depts.get(x);
+                    jCajeroName.addItem(caj.getNombre());
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(asociarCuenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void obtenerCajero() {
+        String nombre = jCajeroName.getSelectedItem().toString();
+        transaccionCajero service = new transaccionCajero();
+        Cajero caj = service.findByIdcajeroNombre(nombre);
+        jCajero.setText(caj.getIdCajero());
     }
 }

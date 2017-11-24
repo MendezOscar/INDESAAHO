@@ -53,7 +53,7 @@ public class transaccionClientes {
     public void updateCliente(String id, Clientes clie) throws SQLException {
         String query = "UPDATE CLIENTES "
                 + "SET NOMBRE= ?, APELLIDO= ?, IDENTIDAD= ?, DEPARTAMENTO= ?, MUNICIPIO= ?, DIRECCION= ?, ESTADOCIVIL= ?, "
-                + "TELEFONO= ?, GENERO= ?, EDAD= ?, PROFESION= ?, TIPO=?, CONTADOR=?, AREA=?, DEPTO=?, RESPONSABILIDAD=?"
+                + "TELEFONO= ?, GENERO= ?, EDAD= ?, PROFESION= ?, TIPO=?, AREA=?, DEPTO=?, RESPONSABILIDAD=?"
                 + "WHERE IDCLIENTE=?";
         try (PreparedStatement stmt = service.con.prepareStatement(query)) {
             stmt.setString(1, clie.getNombre());
@@ -68,11 +68,10 @@ public class transaccionClientes {
             stmt.setInt(10, clie.getEdad());
             stmt.setString(11, clie.getProfesion());
             stmt.setString(12, clie.getTipo());
-            stmt.setInt(13, clie.getNumero());
-            stmt.setString(14, clie.getArea());
-            stmt.setString(15, clie.getDepto());
-            stmt.setString(16, clie.getResponsabilidad());
-            stmt.setString(17, clie.getIdCliente());
+            stmt.setString(13, clie.getArea());
+            stmt.setString(14, clie.getDepto());
+            stmt.setString(15, clie.getResponsabilidad());
+            stmt.setString(16, clie.getIdCliente());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "El Ciente: " + id + " se ha actualizado correctamente.");
         } catch (SQLException se) {

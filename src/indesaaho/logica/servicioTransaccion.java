@@ -41,8 +41,7 @@ public class servicioTransaccion {
         try (PreparedStatement stmt = service.con.prepareStatement(query)) {
             stmt.setString(1, tran.getNombre());
             stmt.setString(2, tran.getApodo());
-            stmt.setInt(3, tran.getContador());
-            stmt.setString(4, tran.getIdTransaccion());
+            stmt.setString(3, tran.getIdTransaccion());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "La transaccion: " + id + " se ha actualizado correctamente.");
         } catch (SQLException se) {
