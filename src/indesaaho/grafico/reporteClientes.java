@@ -1,21 +1,35 @@
 package indesaaho.grafico;
 
 import indesaaho.logica.ServiciosDB;
+import indesaaho.logica.transaccionClientes;
+import indesaaho.modelos.Clientes;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 /**
  *
@@ -311,4 +325,86 @@ public final class reporteClientes extends javax.swing.JFrame {
         }
     }
     
+    public void crearTable() {
+        try {
+            transaccionClientes service = new transaccionClientes();
+            Clientes clie;
+            int rowNr = 1;
+            ArrayList<Clientes> depts;
+            depts = (ArrayList<Clientes>) service.findAllClientes();
+            Date fechaActual = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaActual);
+            String parrafo1 = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
+            String parrafo2 = "Listado de Clientes";
+
+            String path = "templateOrizontal.docx";
+            XWPFDocument writedoc = new XWPFDocument(new FileInputStream(new File(path)));
+
+            XWPFParagraph paragraph1 = writedoc.createParagraph();
+            XWPFRun run1 = paragraph1.createRun();
+            run1.setFontSize(12);
+            run1.setFontFamily("Consolas");
+            run1.setText(parrafo1);
+            paragraph1.setAlignment(ParagraphAlignment.LEFT);
+
+            XWPFParagraph paragraph2 = writedoc.createParagraph();
+            XWPFRun run2 = paragraph2.createRun();
+            run2.setFontSize(12);
+            run2.setBold(true);
+            run2.setFontFamily("Consolas");
+            run2.setText(parrafo2);
+            paragraph2.setAlignment(ParagraphAlignment.LEFT);
+
+            int nRows = depts.size()+1;
+            int nCols = 14;
+            XWPFTable tableOne = writedoc.createTable(nRows, nCols);
+            XWPFTableRow tableOneRowOne = tableOne.getRow(0);
+            tableOneRowOne.getCell(0).setText("Nº");
+            tableOneRowOne.getCell(1).setText("CODIGO");
+            tableOneRowOne.getCell(2).setText("NOMBRE");
+            tableOneRowOne.getCell(3).setText("APELLIDO");
+            tableOneRowOne.getCell(4).setText("IDENTIDAD");
+            tableOneRowOne.getCell(5).setText("DEPARTAMENTO");
+            tableOneRowOne.getCell(6).setText("MUNICIPIO");
+            tableOneRowOne.getCell(7).setText("DIRECCION");
+            tableOneRowOne.getCell(8).setText("TELEFONO");
+            tableOneRowOne.getCell(9).setText("EDAD");
+            tableOneRowOne.getCell(10).setText("PROFESION");
+            tableOneRowOne.getCell(11).setText("TIPO");
+            tableOneRowOne.getCell(12).setText("LABOR/AREA");
+            tableOneRowOne.getCell(13).setText("DEPARTAMENTO");
+
+            
+            for (int x = 0; x < depts.size(); x++) {
+                clie = depts.get(x);
+                if (clie != null) {
+                    XWPFTableRow row = tableOne.getRow(rowNr++);
+                    row.getCell(0).setText(Integer.toString(x + 1));
+                    row.getCell(1).setText(clie.getIdCliente());
+                    row.getCell(2).setText(clie.getNombre());
+                    row.getCell(3).setText(clie.getApellido());
+                    row.getCell(4).setText(clie.getIdentidad());
+                    row.getCell(5).setText(clie.getDepartamento());
+                    row.getCell(6).setText(clie.getMunicipio());
+                    row.getCell(7).setText(clie.getDireccion());
+                    row.getCell(8).setText(clie.getTelefono());
+                    row.getCell(9).setText(Integer.toString(clie.getEdad()));
+                    row.getCell(10).setText(clie.getProfesion());
+                    row.getCell(11).setText(clie.getTipo());
+                    row.getCell(12).setText(clie.getArea());
+                    row.getCell(13).setText(clie.getDepto());
+                }else{
+                    System.out.println("null");
+                }
+
+            }
+            try (FileOutputStream outStream = new FileOutputStream("Lista de Clientes.docx")) {
+                writedoc.write(outStream);
+            }
+
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(reporteClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -164,4 +164,22 @@ public class transaccionLibreta {
         }
         return null;
     }
+    
+    public List<Libreta> obtenerLibretaTransaccion(String tran) {
+        try {
+            String query = "SELECT * FROM LIBRETA WHERE TRANSACCION = " + "'" + tran + "'";
+            PreparedStatement stmt = service.con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<Libreta> depts = new ArrayList<>();
+            while (rs.next()) {
+                depts.add(new Libreta(rs.getString("IDLIBRETA"), rs.getString("IDCLIENTE"), rs.getString("CUENTA"),
+                    rs.getString("CAJERO"), rs.getString("FECHA"), rs.getString("TRANSACCION"), rs.getFloat("VALOR"),
+                    rs.getFloat("SALDOACTUAL"), rs.getInt("CONTADOR")));
+            }
+            return depts;
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiciosDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
